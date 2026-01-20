@@ -1,0 +1,408 @@
+/*
+ * Copyright (c) 2022 The ZMK Contributors
+ *
+ * SPDX-License-Identifier: MIT
+ */
+
+#include <behaviors.dtsi>
+#include <dt-bindings/zmk/keys.h>
+#include <dt-bindings/zmk/bt.h>
+#include <dt-bindings/zmk/outputs.h>
+
+#define ZMK_POINTING_DEFAULT_MOVE_VAL 1800
+#include <dt-bindings/zmk/pointing.h>
+
+#define BASE        0
+#define NUM         1
+#define SYM         2
+#define NAV         3
+#define SETTING     4
+#define MOUSE       5
+#define MOUSESLOW   6
+
+&mt {
+    flavor = "tap-preferred";
+    tapping-term-ms = <220>;
+    quick-tap-ms = <180>;
+    require-prior-idle-ms = <100>;
+};
+
+&sk {
+    release-after-ms = <800>;
+    quick-release;
+};
+
+&caps_word {
+    continue-list = <UNDERSCORE MINUS BSPC>;
+};
+
+/ {
+    combos {
+        compatible = "zmk,combos";
+
+        /****************************************
+        ********** Left Hand Combos  ***********
+        ****************************************/
+
+        combo_ctrl_b {
+            timeout-ms = <40>;
+            key-positions = <11 12>;
+            bindings = <&kp LC(B)>;
+        };
+
+        combo_save {
+            timeout-ms = <40>;
+            key-positions = <12 13>;
+            bindings = <&kp LC(S)>;
+        };
+
+        combo_copy_yank {
+            timeout-ms = <40>;
+            key-positions = <21 22>;
+            bindings = <&kp LG(C)>;
+        };
+
+	    combo_paste {
+            timeout-ms = <40>;
+            key-positions = <22 23>;
+            bindings = <&kp LG(V)>;
+        };
+
+        combo_app_switcher {
+            timeout-ms = <40>;
+            key-positions = <21 22 23>;
+            bindings = <&kp LG(TAB)>;
+        };
+
+    	combo_ctrl_tab {
+            timeout-ms = <40>;
+            key-positions = <2 13>;
+            bindings = <&kp LC(TAB)>;
+        };
+
+    	combo_ctrl_tab_back {
+            timeout-ms = <40>;
+            key-positions = <2 11>;
+            bindings = <&kp LC(LS(TAB))>;
+        };
+
+    	combo_swap_tab_down {
+            timeout-ms = <40>;
+            key-positions = <12 3>;
+            bindings = <&kp LC(LS(PAGE_DOWN))>;
+        };
+
+    	combo_swap_tab_up {
+            timeout-ms = <40>;
+            key-positions = <1 12>;
+            bindings = <&kp LC(LS(PAGE_UP))>;
+        };
+
+    	combo_back_history {
+            timeout-ms = <40>;
+            key-positions = <1 2>;
+            bindings = <&kp LG(LBKT)>;
+        };
+
+    	combo_forward_history {
+            timeout-ms = <40>;
+            key-positions = <2 3>;
+            bindings = <&kp LG(RBKT)>;
+        };
+
+    	combo_space {
+            timeout-ms = <40>;
+            key-positions = <11 13>;
+            bindings = <&kp SPACE>;
+        };
+
+        /****************************************
+        ********** Right Hand Combos  ***********
+        ****************************************/
+
+    	combo_esc {
+            timeout-ms = <40>;
+            key-positions = <16 17>;
+            bindings = <&kp ESC>;
+            layers = <0 1 2 3>;
+        };
+
+        combo_return {
+            timeout-ms = <40>;
+            key-positions = <17 18>;
+            bindings = <&kp RETURN>;
+            layers = <0 1 2 3>;
+        };
+
+    	combo_del {
+            timeout-ms = <40>;
+            key-positions = <26 27>;
+            bindings = <&kp DEL>;
+        };
+
+    	combo_tab {
+            timeout-ms = <40>;
+            key-positions = <27 28>;
+            bindings = <&kp TAB>;
+        };
+
+    	combo_bol {
+            timeout-ms = <40>;
+            key-positions = <6 7>;
+            bindings = <&kp LG(LEFT)>;
+        };
+
+    	combo_eol {
+            timeout-ms = <40>;
+            key-positions = <7 8>;
+            bindings = <&kp LG(RIGHT)>;
+        };
+
+    	combo_word_left {
+            timeout-ms = <40>;
+            key-positions = <7 16>;
+            bindings = <&kp LA(LEFT)>;
+            layers = <0 1 2 3>;
+        };
+
+    	combo_word_right {
+            timeout-ms = <40>;
+            key-positions = <7 18>;
+            bindings = <&kp LA(RIGHT)>;
+            layers = <0 1 2 3>;
+        };
+
+        /****************************
+        ******    Code Combos   *****
+        ******  Right Hand Vim  *****
+        *****************************/
+
+        combo_focus_left {
+            timeout-ms = <35>;
+            key-positions = <17 26>;
+            bindings = <&kp LC(H)>;
+        };
+
+        combo_focus_right {
+            timeout-ms = <50>;
+            key-positions = <17 28>;
+            bindings = <&kp LC(L)>;
+        };
+
+        combo_focus_down {
+            timeout-ms = <35>;
+            key-positions = <16 27>;
+            bindings = <&kp LC(J)>;
+        };
+
+        combo_focus_up {
+            timeout-ms = <50>;
+            key-positions = <18 27>;
+            bindings = <&kp LC(K)>;
+        };
+
+        /****************************************
+        ********** Both Hand Combos  ***********
+        ****************************************/
+
+        combo_caps_word {
+            timeout-ms = <55>;
+            key-positions = <13 16>;
+            bindings = <&caps_word>;
+        };
+
+    };
+
+    behaviors {
+        mo_kp: momentary_hold_key_press_hold {
+             compatible = "zmk,behavior-hold-tap";
+             #binding-cells = <2>;
+             flavor = "hold-preferred";
+             tapping-term-ms = <180>;
+             quick-tap-ms = <180>;
+             bindings = <&mo>, <&kp>;
+         };
+
+        mo_kp_tap: momentary_hold_key_press_tap_prefer {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "tap-preferred";
+            tapping-term-ms = <220>;
+            quick-tap-ms = <180>;
+            require-prior-idle-ms = <100>;
+            bindings = <&mo>, <&kp>;
+        };
+
+        sk_kp_tap: stiky_key_press_tap_prefer {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "tap-preferred";
+            tapping-term-ms = <220>;
+            quick-tap-ms = <180>;
+            require-prior-idle-ms = <100>;
+            bindings = <&sk>, <&kp>;
+        };
+
+        bt_clcla: tap_dance_bt_control {
+            compatible = "zmk,behavior-tap-dance";
+            #binding-cells = <0>;
+            tapping-term-ms = <300>;
+            bindings = <&none>, <&bt BT_CLR>, <&bt BT_CLR_ALL>;
+        };
+
+        apos_grave: aposgrave {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&kp APOS>, <&kp GRAVE>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
+
+        dot: period_mod_tap {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&kp DOT>, <&kp DQT>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
+
+        dot_hold: dot_hold {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "tap-preferred";
+            tapping-term-ms = <220>;
+            quick-tap-ms = <180>;
+            require-prior-idle-ms = <100>;
+            bindings = <&kp>, <&dot>;
+        };
+
+        cmma: cmma_mod_tap {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&kp COMMA>, <&kp EXCL>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
+
+        cmma_hold: cmma_hold {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "tap-preferred";
+            tapping-term-ms = <220>;
+            quick-tap-ms = <180>;
+            require-prior-idle-ms = <100>;
+            bindings = <&kp>, <&cmma>;
+        };
+
+    };
+
+    keymap {
+        compatible = "zmk,keymap";
+
+        /* 0 */
+        default {
+            bindings = <
+                &kp Q &kp W &kp F &kp P &kp B
+                &kp J &kp L &kp U &kp Y &apos_grave
+
+                &mt LC(LA(LSHIFT)) A &mo_kp_tap MOUSE R &mo_kp_tap NAV S &mo_kp_tap NUM T &kp G
+                &kp M &kp N &kp E &mo_kp_tap SETTING I &mt LC(LA(LSHIFT)) O
+
+                &kp Z &mt LALT X &mt LCMD C &mt LCMD D &kp V
+                &kp K &mt LCMD H &cmma_hold LCMD 0 &dot_hold LALT 0 &kp SLASH
+
+                &sk LSFT &mo_kp SYM BSPC &sk_kp_tap LCTRL SPACE &key_repeat
+            >;
+		};
+
+        /* 1 */
+        numbers {
+            bindings = <
+                &none &none &none &none &none
+                &none &kp NUM_7 &kp NUM_8 &kp NUM_9 &none
+
+		        &none &sk LALT &sk LCMD &trans &none
+                &kp MINUS &kp NUM_4 &kp NUM_5 &kp NUM_6 &kp NUM_0
+
+                &none &none &none &none &none
+                &kp DOT &kp NUM_1 &kp NUM_2 &kp NUM_3 &kp SLASH
+
+	            &trans &trans &trans &trans
+            >;
+		};
+
+        /* 2 */
+	    symbol {
+            bindings = <
+                &none &kp EXCL &kp LBRC &kp RBRC &none
+                &none &kp PERCENT &kp PLUS &kp EQUAL &none
+
+                &kp UNDER &kp AMPS &kp LPAR &kp RPAR &kp TILDE
+                &kp CARET &kp STAR &kp HASH &kp DOLLAR &kp MINUS
+
+                &kp SEMICOLON &mt LALT AT &mt LCMD LBKT &mt LCMD RBKT &kp PIPE
+                &kp BACKSLASH &mt LCMD LT &mt LCMD GT &mt LALT DQT &kp COLON
+
+                &trans &trans &trans &trans
+            >;
+		};
+
+        /* 3 */
+	    navigation {
+            bindings = <
+                &none &kp INSERT &none &none &none
+                &none &kp END &kp HOME &none &none
+
+                &none &mt LALT RETURN &trans &mt LCMD TAB &none
+                &kp LEFT &kp DOWN &kp UP &kp RIGHT &none
+
+                &none &kp ESC &none &kp DEL &none
+                &none &kp PAGE_DOWN &kp PAGE_UP &none &none
+
+                &trans &trans &trans &trans
+            >;
+		};
+
+        /* 4 */
+    	settings {
+            bindings = <
+                &none &bt_clcla &none &out OUT_TOG &none
+                &none &none &none &none &none
+
+                &bt BT_SEL 3 &bt BT_SEL 2 &bt BT_SEL 1 &bt BT_SEL 0 &bt BT_SEL 4
+                &none &kp C_BRIGHTNESS_INC &kp C_VOL_UP &trans &none
+
+                &bt BT_DISC 3 &bt BT_DISC 2 &none &none &none
+                &none &kp C_BRIGHTNESS_DEC &kp C_VOL_DN &none &none
+
+                &none &none &kp C_PP &kp C_NEXT
+            >;
+        };
+
+        /* 5 */
+        mouse {
+            bindings = <
+                &none &none &none &mt LG(LS(NUM_5)) LG(LS(NUM_4)) &none
+                &none &none &mmv MOVE_UP &none &none
+
+                &sk LALT &trans &sk LCMD &sk LCTRL &none
+                &none &mmv MOVE_LEFT &mmv MOVE_DOWN  &mmv MOVE_RIGHT &mkp MCLK
+
+                &none &none &none &none &none
+                &msc SCRL_LEFT &msc SCRL_DOWN &msc SCRL_UP &msc SCRL_RIGHT &none
+
+                &trans &mo MOUSESLOW &mkp LCLK &mkp RCLK
+            >;
+        };
+
+        /* 6 */
+        mouse_slow {
+            bindings = <
+                &trans &trans &trans &trans &trans
+                &trans &trans &mmv MOVE_Y(-900) &trans &trans
+                &trans &trans &trans &trans &trans
+                &trans &mmv MOVE_X(-900) &mmv MOVE_Y(900) &mmv MOVE_X(900) &trans
+                &trans &trans &trans &trans &trans &trans &trans &trans &trans &trans
+                &trans &trans &trans &trans
+            >;
+        };
+
+	};
+};
