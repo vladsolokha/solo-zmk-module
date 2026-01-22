@@ -28,7 +28,7 @@
 };
 
 &sk {
-    release-after-ms = <800>;
+    release-after-ms = <500>;
     quick-release;
 };
 
@@ -112,8 +112,14 @@
 
     	combo_space {
             timeout-ms = <40>;
-            key-positions = <11 13>;
+            key-positions = <11 12 13>;
             bindings = <&kp SPACE>;
+        };
+
+        combo_refresh {
+            timeout-ms = <40>;
+            key-positions = <11 13>;
+            bindings = <&kp LG(R)>;
         };
 
         /****************************************
@@ -199,16 +205,6 @@
             timeout-ms = <50>;
             key-positions = <18 27>;
             bindings = <&kp LC(K)>;
-        };
-
-        /****************************************
-        ********** Both Hand Combos  ***********
-        ****************************************/
-
-        combo_caps_word {
-            timeout-ms = <55>;
-            key-positions = <13 16>;
-            bindings = <&caps_word>;
         };
 
     };
@@ -369,7 +365,7 @@
                 &bt BT_SEL 3 &bt BT_SEL 2 &bt BT_SEL 1 &bt BT_SEL 0 &bt BT_SEL 4
                 &none &kp C_BRIGHTNESS_INC &kp C_VOL_UP &trans &none
 
-                &bt BT_DISC 3 &bt BT_DISC 2 &none &none &none
+                &bt BT_DISC 3 &bt BT_DISC 2 &bt BT_DISC 1 &bt BT_DISC 0 &bt BT_DISC 4
                 &none &kp C_BRIGHTNESS_DEC &kp C_VOL_DN &none &none
 
                 &none &none &kp C_PP &kp C_NEXT
