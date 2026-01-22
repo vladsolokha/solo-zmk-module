@@ -246,6 +246,13 @@
             bindings = <&none>, <&bt BT_CLR>, <&bt BT_CLR_ALL>;
         };
 
+        sys_res_boot_td: tap_dance_system_reset_bootloader {
+            compatible = "zmk,behavior-tap-dance";
+            #binding-cells = <0>;
+            tapping-term-ms = <300>;
+            bindings = <&none>, <&sys_reset>, <&bootloader>;
+        };
+
         apos_grave: aposgrave {
             compatible = "zmk,behavior-mod-morph";
             #binding-cells = <0>;
@@ -359,8 +366,8 @@
         /* 4 */
     	settings {
             bindings = <
-                &none &bt_clcla &none &out OUT_TOG &none
-                &none &none &none &none &none
+                &none &bt_clcla &none &out OUT_TOG &sys_res_boot_td
+                &sys_res_boot_td &none &none &none &none
 
                 &bt BT_SEL 3 &bt BT_SEL 2 &bt BT_SEL 1 &bt BT_SEL 0 &bt BT_SEL 4
                 &none &kp C_BRIGHTNESS_INC &kp C_VOL_UP &trans &none
