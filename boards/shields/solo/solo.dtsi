@@ -5,6 +5,7 @@
     chosen {
         zmk,kscan = &kscan0;
         zmk,physical-layout = &default_layout;
+        zmk,soft-off-wakeup-sources = <&wakeup_scan>;
     };
 
     kscan0: kscan_0 {
@@ -74,35 +75,30 @@
         hw_soft_off: hw_soft_off {
             compatible = "zmk,behavior-soft-off";
             #binding-cells = <0>;
-
-            split-peripheral-off-on-press; // Turn peripheral off immediately for reliability
-            hold-time-ms = <100>; // turn off if the key is held for 100 milliseconds or longer.
+            split-peripheral-off-on-press; 
+            hold-time-ms = <500>; 
         };
     };
 
-    keys {
+    soft_off_gpio_key: soft_off_gpio_key {
         compatible = "gpio-keys";
-        soft_off_gpio_key: soft_off_gpio_key {
+        soft_off_button: button_0 {
             gpios = <&gpio0 3 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
         };
     };
-
+    
     wakeup_scan: wakeup_scan {
         compatible = "zmk,kscan-gpio-direct";
-        input-keys = <&soft_off_gpio_key>;
+        input-keys = <&soft_off_button>;
         wakeup-source;
     };
 
-    side_band_behavior_triggers: side_band_behavior_triggers {
+    sideband_behaviors: sideband_behaviors {
         compatible = "zmk,kscan-sideband-behaviors";
-
         kscan = <&wakeup_scan>;
-
         auto-enable;
-        wakeup-source;
 
-
-        soft_off {
+        soft_off_trigger {
             column = <0>;
             row = <0>;
             bindings = <&hw_soft_off>;
