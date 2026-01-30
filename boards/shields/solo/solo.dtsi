@@ -79,13 +79,6 @@
             hold-time-ms = <500>; 
         };
     };
-
-    soft_off_gpio_key: soft_off_gpio_key {
-        compatible = "gpio-keys";
-        soft_off_button: button_0 {
-            gpios = <&gpio0 3 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
-        };
-    };
     
     wakeup_scan: wakeup_scan {
         compatible = "zmk,kscan-gpio-direct";

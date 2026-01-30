@@ -20,3 +20,12 @@
     , <&gpio1 12 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
     ;
  };
+
+/ {
+    soft_off_gpio_key {
+        compatible = "gpio-keys";
+        soft_off_button: button_0 {
+            gpios = <&gpio0 3 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
+        };
+    };
+};
