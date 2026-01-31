@@ -5,7 +5,6 @@
     chosen {
         zmk,kscan = &kscan0;
         zmk,physical-layout = &default_layout;
-        zmk,soft-off-wakeup-sources = <&wakeup_scan>;
     };
 
     kscan0: kscan_0 {
@@ -77,6 +76,15 @@
             #binding-cells = <0>;
             split-peripheral-off-on-press; 
             hold-time-ms = <500>; 
+        };
+    };
+
+    keys {
+        soft_off_gpio_key: soft_off_gpio_key {
+            compatible = "gpio-keys";
+            soft_off_button: button_0 {
+                gpios = <&gpio0 3 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
+            };
         };
     };
     
