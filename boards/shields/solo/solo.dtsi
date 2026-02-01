@@ -10,7 +10,6 @@
     kscan0: kscan_0 {
         compatible = "zmk,kscan-gpio-matrix";
         diode-direction = "col2row";
-        wakeup-source;
     };
 
     default_layout: default_layout {
@@ -98,6 +97,7 @@
         compatible = "zmk,kscan-sideband-behaviors";
         kscan = <&wakeup_scan>;
         auto-enable;
+        wakeup-source;
 
         soft_off_trigger {
             column = <0>;
