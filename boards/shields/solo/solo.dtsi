@@ -115,3 +115,7 @@
 &xiao_serial {
     status = "disabled";
 };
+
+&soft_off {
+    /delete-property/ split-peripheral-off-on-press;
+};
