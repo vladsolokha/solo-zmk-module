@@ -74,7 +74,7 @@
             compatible = "zmk,behavior-soft-off";
             #binding-cells = <0>;
             split-peripheral-off-on-press; 
-            hold-time-ms = <500>; 
+            hold-time-ms = <2000>; 
         };
     };
 
