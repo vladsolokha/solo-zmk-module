@@ -97,7 +97,7 @@
         auto-enable;
         wakeup-source;
 
-        soft_off_trigger {
+        soft_off {
             column = <0>;
             row = <0>;
             bindings = <&hw_soft_off>;
