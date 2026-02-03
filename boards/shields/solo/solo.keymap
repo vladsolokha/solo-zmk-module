@@ -20,10 +20,6 @@
 #define MOUSE       5
 #define MOUSESLOW   6
 
-&soft_off {
-    /delete-property/ split-peripheral-off-on-press;
-};
-
 &mt {
     flavor = "tap-preferred";
     tapping-term-ms = <220>;
