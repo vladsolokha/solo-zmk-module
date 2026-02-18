@@ -19,6 +19,7 @@
 #define SETTING     4
 #define MOUSE       5
 #define MOUSESLOW   6
+#define SOFTOFF     7
 
 &soft_off {
     hold-time-ms = <5000>; // Only turn off if key held for +3s
@@ -299,7 +300,7 @@
         /* 0 */
         default {
             bindings = <
-                &kp Q &kp W &kp F &kp P &kp B
+                &kp Q &kp W &kp F &kp P &mo_kp_tap SOFTOFF B
                 &kp J &kp L &kp U &kp Y &apos_grave
 
                 &mt LC(LA(LSHIFT)) A &mo_kp_tap MOUSE R &mo_kp_tap NAV S &mo_kp_tap NUM T &kp G
@@ -363,8 +364,8 @@
         /* 4 */
     	settings {
             bindings = <
-                &none &bt_clcla &soft_off &out OUT_TOG &none
-                &none &none &none &none &none
+                &none &bt_clcla &none &none &out OUT_TOG
+                &none &none &kp C_PREV &none &none
 
                 &bt BT_SEL 3 &bt BT_SEL 2 &bt BT_SEL 1 &bt BT_SEL 0 &bt BT_SEL 4
                 &none &kp C_BRIGHTNESS_INC &kp C_VOL_UP &trans &none
@@ -404,5 +405,14 @@
             >;
         };
 
+        /* 7 */
+        softofflayer {
+            bindings = <
+                &none &none &none &none &none &none &none &none &none &none
+                &none &none &none &none &soft_off &none &none &none &none &none
+                &none &none &none &none &none &none &none &none &none &none
+                &none &none &none &none
+            >;
+        };
 	};
 };
